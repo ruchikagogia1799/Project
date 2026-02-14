@@ -5,6 +5,35 @@ import base64
 from pathlib import Path
 import streamlit as st
 
+# ==============================
+# 🔐 SIMPLE PASSWORD PROTECTION
+# ==============================
+
+APP_PASSWORD = "shinchanlove"  # 👈 change this to your secret password
+
+def check_password():
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        st.set_page_config(page_title="Private 💘", page_icon="🔒", layout="centered")
+        st.markdown("## 🔒 Private App")
+        st.write("This app is protected. Enter password to continue.")
+
+        password = st.text_input("Password", type="password")
+
+        if st.button("Unlock 💘"):
+            if password == APP_PASSWORD:
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Wrong password 😌")
+
+        st.stop()
+
+check_password()
+
+
 # ============================================================
 # 🔧 CUSTOMIZE HERE (PUT MEDIA FILES NEXT TO valentine.py)
 # ============================================================
@@ -21,7 +50,7 @@ CONFIG = {
         "q1": "q1.jpeg",
         "q2": "q2.gif",
         "q3": "q3.gif",
-        "q4": "q3.gif",
+        "q4": "q4.gif",
         "q5": "q5.jpeg",
         "q6": "q6.jpeg",
         "q7": "q7.gif",
